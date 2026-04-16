@@ -1,0 +1,334 @@
+# SKM
+Real Saver system Game
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ရှမ်းကိုးမီး</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;color:#fff;background:linear-gradient(180deg,#5b57b8,#251457);min-height:100vh}
+button,input{font-family:inherit;border:none;outline:none}button{cursor:pointer}
+.page{display:none;min-height:100vh}.show{display:block}
+.wrap{max-width:420px;margin:auto;padding:18px}
+.card{background:rgba(18,12,40,.58);border-radius:20px;padding:20px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.title{text-align:center;font-size:28px;font-weight:bold;margin-bottom:14px}
+.tabs{display:flex;gap:10px;margin-bottom:14px}
+.tab,.btn{background:linear-gradient(180deg,#a98bff,#6c4fe0);color:#fff;border-radius:14px;padding:14px;font-weight:bold}
+.tab{flex:1}.off{background:rgba(255,255,255,.08);color:#ddd4ff}
+.form{display:none}.form.show{display:block}
+.input{width:100%;padding:14px;border-radius:14px;margin-bottom:10px}
+.msg{text-align:center;min-height:20px;color:#ffbcc2;margin-top:10px}
+
+.top{display:flex;justify-content:space-between;gap:10px;padding:12px;align-items:flex-start}
+.box{background:rgba(18,10,40,.28);border-radius:16px;padding:8px 10px}
+.profile{display:flex;gap:10px;align-items:center}
+.avatar{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,#ffdcea,#f6a8cb,#8c2f79)}
+.name{font-size:18px;font-weight:bold}.id{font-size:12px;color:#eee4ff;margin-top:4px}
+.coin{display:flex;gap:8px;align-items:center;font-size:22px;font-weight:bold}
+.main{padding:12px;display:grid;grid-template-columns:38% 62%;gap:12px}
+.left{position:relative;min-height:420px}
+.sign{display:inline-block;background:rgba(116,24,134,.32);border:2px solid rgba(255,255,255,.1);border-radius:16px;padding:10px 12px;color:#ffd8ff;font-weight:bold}
+.lady{position:absolute;left:0;bottom:0;width:220px;height:330px}
+.hair{position:absolute;left:58px;top:16px;width:90px;height:120px;background:linear-gradient(180deg,#48192e,#8a315c 45%,#5d2141);border-radius:50px 58px 54px 66px}
+.head{position:absolute;left:78px;top:38px;width:64px;height:76px;background:linear-gradient(180deg,#ffe6da,#efc5b8);border-radius:42% 42% 48% 48%;z-index:2}
+.front{position:absolute;left:68px;top:24px;width:88px;height:56px;background:linear-gradient(180deg,#2d1018,#5f2140 55%,transparent 56%);border-radius:54px 54px 24px 24px;z-index:3}
+.body2{position:absolute;left:58px;top:126px;width:104px;height:150px;background:linear-gradient(180deg,#fff,#f4eef8 38%,#0e173c 39%,#061029 100%);border-radius:26px 26px 20px 20px}
+.arm1,.arm2{position:absolute;height:16px;background:#efc4b1;border-radius:14px;z-index:4}
+.arm1{left:20px;top:180px;width:90px;transform:rotate(16deg)}
+.arm2{left:110px;top:178px;width:70px;transform:rotate(-28deg)}
+.cardsL{position:absolute;left:18px;top:148px;display:flex;gap:6px;transform:rotate(-12deg);z-index:5}
+
+.grid{display:grid;grid-template-columns:1.1fr 1fr;grid-template-rows:140px 86px 86px;gap:12px}
+.g{position:relative;border-radius:20px;padding:14px;color:#fff;text-align:left;box-shadow:0 12px 22px rgba(0,0,0,.28)}
+.gm{grid-row:1/span 2;background:linear-gradient(135deg,#c14c2a,#90322b)}
+.g1{background:linear-gradient(135deg,#61d7db,#3c9aa7)}
+.g2{background:linear-gradient(135deg,#9068ff,#5265da)}
+.g3{background:linear-gradient(135deg,#37acff,#2041b4)}
+.g4{background:linear-gradient(135deg,#f0b635,#b66b15)}
+.g5{background:linear-gradient(135deg,#88dd33,#45bb4e)}
+.g6{background:linear-gradient(135deg,#ff9150,#dc612f)}
+.gt{position:absolute;left:14px;bottom:12px;font-weight:bold}
+.gm .gt{font-size:30px}.icon{position:absolute;right:12px;top:12px;font-size:28px}
+.bottom{position:fixed;left:0;right:0;bottom:0;height:58px;background:linear-gradient(180deg,rgba(97,90,171,.96),rgba(41,43,92,.98));display:flex;justify-content:center;align-items:center;gap:18px;font-size:12px}
+
+.roomTop{display:flex;justify-content:space-between;align-items:center;padding:12px}
+.rbtn{background:rgba(0,0,0,.28);color:#fff;border-radius:12px;padding:10px 14px;font-weight:bold}
+.rtitle{background:rgba(0,0,0,.24);padding:10px 16px;border-radius:14px;font-weight:bold}
+.table{width:min(94vw,900px);height:60vh;margin:20px auto;border-radius:200px;background:radial-gradient(circle at center,#ac3041 0%,#8f2034 54%,#6f1727 100%);border:12px solid #9b8dd2;position:relative}
+.result{position:absolute;left:50%;top:16px;transform:translateX(-50%);background:#2f253d;color:#ffe27d;padding:10px 18px;border-radius:16px;font-weight:bold}
+.dealer{position:absolute;left:50%;top:70px;transform:translateX(-50%);text-align:center}
+.you{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);text-align:center}
+.tag{display:inline-block;background:rgba(0,0,0,.42);padding:6px 10px;border-radius:12px;font-size:13px;font-weight:bold}
+.cards{margin-top:8px;display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
+.pc{width:52px;height:76px;border-radius:8px;background:#fff;position:relative;box-shadow:0 6px 12px rgba(0,0,0,.24);font-weight:bold;color:#111}
+.red{color:#c8162f}.black{color:#111}
+.tl{position:absolute;top:6px;left:6px;font-size:16px;line-height:1}.br{position:absolute;right:6px;bottom:6px;font-size:16px;line-height:1;transform:rotate(180deg)}.cc{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:28px}
+.actions{text-align:center;padding:0 12px 80px}.actions .btn{display:inline-block;min-width:150px;margin:0 6px}
+
+@media(max-width:900px){
+.main{grid-template-columns:40% 60%}.lady{width:170px;height:260px}.hair{left:42px;top:10px;width:64px;height:84px}.head{left:56px;top:24px;width:46px;height:54px}.front{left:48px;top:14px;width:64px;height:40px}.body2{left:42px;top:88px;width:74px;height:106px}.arm1{left:14px;top:126px;width:64px;height:12px}.arm2{left:76px;top:124px;width:48px;height:12px}.cardsL{left:8px;top:108px}.pc{width:40px;height:58px}.tl,.br{font-size:12px}.cc{font-size:20px}.gm .gt{font-size:22px}.gt{font-size:13px}.grid{grid-template-rows:108px 72px 72px}.coin{font-size:18px}.name{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<div id="auth" class="page show">
+  <div class="wrap">
+    <div class="card">
+      <div class="title">ရှမ်းကိုးမီး</div>
+      <div class="tabs">
+        <button id="loginTab" class="tab">အကောင့်ဝင်မည်</button>
+        <button id="signupTab" class="tab off">အကောင့်သစ်ဖွင့်မည်</button>
+      </div>
+
+      <div id="loginForm" class="form show">
+        <input id="loginName" class="input" placeholder="အမည်">
+        <input id="loginPass" class="input" type="password" placeholder="စကားဝှက်">
+        <button id="loginBtn" class="btn">အကောင့်ဝင်မည်</button>
+      </div>
+
+      <div id="signupForm" class="form">
+        <input id="signupName" class="input" placeholder="အမည်">
+        <input id="signupPass" class="input" type="password" placeholder="စကားဝှက်">
+        <input id="signupPass2" class="input" type="password" placeholder="စကားဝှက်အတည်ပြု">
+        <button id="signupBtn" class="btn">အတည်ပြုမည်</button>
+      </div>
+
+      <div id="msg" class="msg"></div>
+    </div>
+  </div>
+</div>
+
+<div id="main" class="page">
+  <div class="top">
+    <div class="profile box">
+      <div class="avatar"></div>
+      <div>
+        <div id="profileName" class="name"></div>
+        <div id="profileId" class="id"></div>
+      </div>
+    </div>
+
+    <div class="coin box">
+      <div class="coinIcon">🪙</div>
+      <div id="coinValue"></div>
+      <div class="plus">+</div>
+    </div>
+  </div>
+
+  <div class="sign">M9<br>SHAN KOE MEE</div>
+
+  <div class="main">
+    <div class="left">
+      <div class="lady">
+        <div class="hair"></div>
+        <div class="head"></div>
+        <div class="front"></div>
+        <div class="body2"></div>
+        <div class="arm1"></div>
+        <div class="arm2"></div>
+        <div class="cardsL">
+          <div class="pc black"><div class="tl">A♠</div><div class="cc">♠</div><div class="br">A♠</div></div>
+          <div class="pc black"><div class="tl">8♠</div><div class="cc">♠</div><div class="br">8♠</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="grid">
+        <button id="openRoomBtn" class="g gm">
+          <div class="gt">ရှမ်းကိုးမီး</div>
+          <div class="mainCards">
+            <div class="pc black"><div class="tl">8♠</div><div class="cc">♠</div><div class="br">8♠</div></div>
+            <div class="pc black"><div class="tl">A♠</div><div class="cc">♠</div><div class="br">A♠</div></div>
+          </div>
+        </button>
+        <button class="g g1"><div class="icon">🃏</div><div class="gt">A.B.C.D ဂိမ်း</div></button>
+        <button class="g g2"><div class="icon">🐉</div><div class="gt">ကျား - နဂါး</div></button>
+        <button class="g g3"><div class="icon">🐟</div><div class="gt">FISHING</div></button>
+        <button class="g g4"><div class="icon">🐂</div><div class="gt">နွား</div></button>
+        <button class="g g5"><div class="icon">7️⃣</div><div class="gt">SLOTS</div></button>
+        <button id="logoutBtn" class="g g6"><div class="icon">⚙️</div><div class="gt">အကောင့်ထွက်မည်</div></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div>👑 ဗီပီခန်း</div>
+    <div>🏛️ ငွေသွင်းရန်</div>
+    <div>💵 ငွေထုတ်ရန်</div>
+  </div>
+</div>
+
+<div id="room" class="page">
+  <div class="roomTop">
+    <button id="backBtn" class="rbtn">← နောက်သို့</button>
+    <div class="rtitle">ရှမ်းကိုးမီး အခန်း</div>
+    <button id="resetBtn" class="rbtn">အသစ်စ</button>
+  </div>
+
+  <div class="table">
+    <div id="result" class="result">ကစားမယ် ကိုနှိပ်ပါ</div>
+
+    <div class="dealer">
+      <div class="tag">ဒိုင်</div>
+      <div id="dealerCards" class="cards"></div>
+    </div>
+
+    <div class="you">
+      <div id="roomUser" class="tag">Player</div>
+      <div id="userCards" class="cards"></div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="playBtn" class="btn">ကစားမယ်</button>
+    <button id="dealBtn" class="btn">ထပ်ဝေမယ်</button>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+
+function showLogin(){
+  $("loginForm").classList.add("show");
+  $("signupForm").classList.remove("show");
+  $("loginTab").classList.remove("off");
+  $("signupTab").classList.add("off");
+  $("msg").innerText="";
+}
+function showSignup(){
+  $("signupForm").classList.add("show");
+  $("loginForm").classList.remove("show");
+  $("signupTab").classList.remove("off");
+  $("loginTab").classList.add("off");
+  $("msg").innerText="";
+}
+function users(){return JSON.parse(localStorage.getItem("users")||"[]")}
+function saveUsers(x){localStorage.setItem("users",JSON.stringify(x))}
+function current(){return JSON.parse(localStorage.getItem("current")||"null")}
+function saveCurrent(x){localStorage.setItem("current",JSON.stringify(x))}
+
+function openMain(user){
+  $("auth").classList.remove("show");
+  $("room").classList.remove("show");
+  $("main").classList.add("show");
+  $("profileName").innerText=user.name;
+  $("profileId").innerText="ID: "+user.id;
+  $("coinValue").innerText=user.coin;
+  $("roomUser").innerText=user.name;
+}
+
+function signup(){
+  let name=$("signupName").value.trim();
+  let pass=$("signupPass").value;
+  let pass2=$("signupPass2").value;
+
+  if(!name||!pass||!pass2){$("msg").innerText="အားလုံးဖြည့်ပါ";return}
+  if(pass!==pass2){$("msg").innerText="စကားဝှက် မတူပါ";return}
+
+  let list=users();
+  if(list.find(u=>u.name===name)){$("msg").innerText="အကောင့်ရှိပြီးသား";return}
+
+  let user={name,password:pass,id:Math.floor(10000000+Math.random()*89999999),coin:26777};
+  list.push(user); saveUsers(list); saveCurrent(user); openMain(user);
+}
+
+function login(){
+  let name=$("loginName").value.trim();
+  let pass=$("loginPass").value;
+  let user=users().find(u=>u.name===name&&u.password===pass);
+  if(!user){$("msg").innerText="အမည် သို့ စကားဝှက် မှားနေသည်";return}
+  saveCurrent(user); openMain(user);
+}
+
+function logout(){
+  localStorage.removeItem("current");
+  $("main").classList.remove("show");
+  $("room").classList.remove("show");
+  $("auth").classList.add("show");
+  showLogin();
+}
+
+const deck=[
+"A♠","2♠","3♠","4♠","5♠","6♠","7♠","8♠","9♠","10♠","J♠","Q♠","K♠",
+"A♥","2♥","3♥","4♥","5♥","6♥","7♥","8♥","9♥","10♥","J♥","Q♥","K♥",
+"A♦","2♦","3♦","4♦","5♦","6♦","7♦","8♦","9♦","10♦","J♦","Q♦","K♦",
+"A♣","2♣","3♣","4♣","5♣","6♣","7♣","8♣","9♣","10♣","J♣","Q♣","K♣"
+];
+function val(c){
+  let r=c.slice(0,-1);
+  if(r==="A") return 1;
+  if(["10","J","Q","K"].includes(r)) return 0;
+  return parseInt(r,10)||0;
+}
+function color(c){return (c.includes("♥")||c.includes("♦"))?"red":"black"}
+function card(c){
+  return `<div class="pc ${color(c)}"><div class="tl">${c}</div><div class="cc">${c.slice(-1)}</div><div class="br">${c}</div></div>`;
+}
+function shuffle(a){
+  let x=[...a];
+  for(let i=x.length-1;i>0;i--){
+    let j=Math.floor(Math.random()*(i+1));
+    [x[i],x[j]]=[x[j],x[i]];
+  }
+  return x;
+}
+function updateCoin(n){
+  let u=current(); if(!u) return;
+  u.coin=n; saveCurrent(u);
+  let list=users(); let i=list.findIndex(v=>v.id===u.id);
+  if(i!==-1){list[i]=u; saveUsers(list)}
+  $("coinValue").innerText=u.coin;
+}
+function play(){
+  let u=current(); if(!u) return;
+  let d=shuffle(deck);
+  let me=[d.pop(),d.pop()];
+  let de=[d.pop(),d.pop()];
+
+  let ms=(val(me[0])+val(me[1]))%10;
+  let ds=(val(de[0])+val(de[1]))%10;
+
+  $("userCards").innerHTML=me.map(card).join("");
+  $("dealerCards").innerHTML=de.map(card).join("");
+
+  let text="သရေ";
+  let coin=u.coin;
+  if(ms>ds){coin+=100;text=`မင်းနိုင်တယ် (${ms}-${ds})`}
+  else if(ms<ds){coin=Math.max(0,coin-100);text=`မင်းရှုံးတယ် (${ms}-${ds})`}
+  else{text=`သရေ (${ms}-${ds})`}
+  $("result").innerText=text;
+  updateCoin(coin);
+}
+
+window.onload=()=>{
+  $("loginTab").onclick=showLogin;
+  $("signupTab").onclick=showSignup;
+  $("loginBtn").onclick=login;
+  $("signupBtn").onclick=signup;
+  $("logoutBtn").onclick=logout;
+
+  $("openRoomBtn").onclick=()=>{
+    $("main").classList.remove("show");
+    $("room").classList.add("show");
+    $("result").innerText="ကစားမယ် ကိုနှိပ်ပါ";
+    $("userCards").innerHTML="";
+    $("dealerCards").innerHTML="";
+  };
+  $("backBtn").onclick=()=>{let u=current(); if(u) openMain(u)};
+  $("resetBtn").onclick=()=>{
+    $("result").innerText="ကစားမယ် ကိုနှိပ်ပါ";
+    $("userCards").innerHTML="";
+    $("dealerCards").innerHTML="";
+  };
+  $("playBtn").onclick=play;
+  $("dealBtn").onclick=play;
+
+  let u=current();
+  if(u) openMain(u); else showLogin();
+};
+</script>
+</body>
+</html>
